@@ -50,7 +50,7 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
         if(err) {
             console.error(`Can not insert data : ${err.toString()}`);
             return;
-        } else console.fine("Data inserted.");
+        } else console.log("Data inserted.");
     });
     res.send("Data inserted.");
 });
