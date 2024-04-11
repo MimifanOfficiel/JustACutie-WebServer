@@ -46,6 +46,7 @@ app.get('/wallpaper', (req, res) => {
 
 
 app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
+    console.log(req.params);
     database.exec(`INSERT INTO accounts (social, email, username, password) VALUES ('${req.params.social}','${req.params.email}','${req.params.username}','${req.params.password}')`, (err) => {
         if(err) {
             console.error(`Can not insert data : ${err.toString()}`);
