@@ -65,11 +65,8 @@ app.get('/displaySocials', async (req, res) => {
             console.error(`Can not execute php file : ${error.toString()}`);
             return;
         }
-        console.log(output);
         res.send(output);
-        
-    }
-    );
+    });
 });
 
 

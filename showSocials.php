@@ -10,10 +10,10 @@ if (!$result) { die("Erreur lors de l'exécution de la requête : " . $db->lastE
 echo 
     "<table border='1'>
         <tr>
-            <th>id</th>
+            <th>social</th>
+            <th>email</th>
             <th>username</th>
             <th>password</th>
-            <th>social</th>
         </tr>";
 
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -24,7 +24,5 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     echo "<td>" . $row['password'] . "</td>";
     echo "</tr>";
 }
-
-$db->close();
 
 ?>
