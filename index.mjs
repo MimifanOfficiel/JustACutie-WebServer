@@ -52,6 +52,7 @@ app.post('/addSocial', (req, res) => {
             return;
         } else console.fine("Data inserted.");
     });
+    res.send("Data inserted.");
 });
 
 
