@@ -45,13 +45,14 @@ app.get('/wallpaper', (req, res) => {
 });
 
 
-app.post('/addSocial', (req, res) => {
-    database.exec(`INSERT INTO accounts (social, email, username, password) VALUES ('${req.body.social}','${req.body.email}','${req.body.username}','${req.body.password}')`, (err) => {
+app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
+    database.exec(`INSERT INTO accounts (social, email, username, password) VALUES ('${req.params.social}','${req.params.email}','${req.params.username}','${req.params.password}')`, (err) => {
         if(err) {
             console.error(`Can not insert data : ${err.toString()}`);
             return;
         } else console.fine("Data inserted.");
     });
+    res.send("Data inserted.");
 });
 
 
