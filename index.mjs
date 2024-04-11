@@ -22,7 +22,7 @@ database.exec(createTables, (err) => {
     if(err) {
         console.error(`Can not create tables : ${err.toString()}`);
         return;
-    } else console.fine("Database state updated.");
+    } else console.log("Database state updated.");
 });
 
 
