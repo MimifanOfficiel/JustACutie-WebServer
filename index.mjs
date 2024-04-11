@@ -3,6 +3,7 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import sqlite3 from 'sqlite3';
+import execPhp from 'exec-php';
 
 const app = express();
 const server = http.createServer(app);
@@ -54,6 +55,21 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
         } else console.log("Data inserted.");
     });
     res.send("Data inserted.");
+});
+
+app.get('/displaySocials', async (req, res) => {
+    const phpFile = path.join('showSocials.php');
+
+    const phpOutput = await execPhp(phpFile, (error, php, output) => {
+        if(error) {
+            console.error(`Can not execute php file : ${error.toString()}`);
+            return;
+        }
+        console.log(output);
+        res.send(output);
+        
+    }
+    );
 });
 
 
