@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 $database = new SQLite3('passwords.db');
 
 $results = $database->query('SELECT * FROM accounts');
@@ -22,6 +20,8 @@ while ($row = $results->fetchArray()) {
     echo "<td>" . $row['social'] . "</td>";
     echo "</tr>";
 }
+
+
 echo "</table>";
 
 
