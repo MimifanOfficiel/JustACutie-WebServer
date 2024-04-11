@@ -2,21 +2,14 @@
 
 $db = new SQLite3('passwords.db');
 
+$query = "SELECT social, email, username, password FROM accounts";
 
-$query = "SELECT * FROM accounts";
-
-// Exécution de la requête
 $result = $db->query($query);
+if (!$result) { die("Erreur lors de l'exécution de la requête : " . $db->lastErrorMsg()); }
 
-// Vérification des erreurs
-if (!$result) {
-    die("Erreur lors de l'exécution de la requête : " . $db->lastErrorMsg());
-}
-
-// Affichage des résultats
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     // Affichage de chaque ligne
-    print_r($row);
+    print_r($row['social'] . " : " . $row['email'] . " : " . $row['username'] . " : " . $row['password'] . "<br />");
 }
 
 // Fermeture de la connexion à la base de données
