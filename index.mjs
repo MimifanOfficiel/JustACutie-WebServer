@@ -88,7 +88,7 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
 	.setColor(0x0099FF)
 	.setTitle('A new account is shared')
 	.setDescription('Someone decided to share this account :3')
-	.setThumbnail(`/socials/${req.params.social}`)
+	.setThumbnail(`http://5.135.74.201:1570/socials/${req.params.social}`)
 	.addFields(
 		{ name: 'Social : ', value: req.params.social },
 		{ name: '\u200B', value: '\u200B' },
