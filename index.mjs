@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 import execPhp from 'exec-php';
-import { guild } from './discordBot/main.mjs';
+import { client, guild } from './discordBot/main.mjs';
 import { EmbedBuilder } from 'discord.js';
 
 const app = express();
