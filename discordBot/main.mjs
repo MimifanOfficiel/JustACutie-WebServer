@@ -16,7 +16,7 @@ client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready', async () => {
     guild = await client.guilds.fetch("1228013193092141096").then(guild => {
-        const channel = guild.channels.cache.get('1228013193708961935');
+        const channel = client.channels.cache.get('1228013193708961935');
         channel.send("Haiii, I'm online to assist Mommy :3");
         return guild;
     });
