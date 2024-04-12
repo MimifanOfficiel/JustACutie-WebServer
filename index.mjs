@@ -48,6 +48,32 @@ app.get('/wallpaper', (req, res) => {
     res.download(path.join('public', randomFile));
 });
 
+app.get('/social/:social', (req, res) => {
+    switch(req.params.social) {
+        case "Discord":
+            res.download("socials/discord.png");
+            break;
+        case "Facebook":
+            res.download("socials/facebook.png");
+            break;
+        case "Instagram":
+            res.download("socials/instagram.jpg");
+            break;
+        case "Snapchat":
+            res.download("socials/snapchat.jpg");
+            break;
+        case "Twitter":
+            res.download("socials/twitter.jpg");
+            break;
+        case "Twitch":
+            res.download("socials/twitch.png");
+            break;
+        case "Google":
+            res.download("socials/google.png");
+            break;
+    }
+});
+
 
 app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
     console.log(req.params);
@@ -62,7 +88,7 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
 	.setColor(0x0099FF)
 	.setTitle('A new account is shared')
 	.setDescription('Someone decided to share this account :3')
-	// .setThumbnail('https://i.imgur.com/AfFp7pu.png')
+	.setThumbnail(`/socials/${req.params.social}`)
 	.addFields(
 		{ name: 'Social : ', value: req.params.social },
 		{ name: '\u200B', value: '\u200B' },
