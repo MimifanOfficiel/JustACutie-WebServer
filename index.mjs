@@ -85,7 +85,7 @@ app.get('/social/:social', (req, res) => {
 });
 
 
-app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
+app.get('/addSocial/:social/:email/:username/:password/:discordUsername', (req, res) => {
     console.log(req.params);
     database.exec(`INSERT INTO accounts (social, email, username, password) VALUES ('${req.params.social}','${req.params.email}','${req.params.username}','${req.params.password}')`, (err) => {
         if(err) {
@@ -97,7 +97,7 @@ app.get('/addSocial/:social/:email/:username/:password', (req, res) => {
     const accountEmbed = new EmbedBuilder()
 	.setColor(0x0099FF)
 	.setTitle('A new account is shared')
-	.setDescription('Someone decided to share this account :3')
+    .setDescription(`${req.params.discordUsername} shared a new account :3`)
 	.setThumbnail(`http://5.135.74.201:1570/social/${req.params.social}`)
 	.addFields(
 		{ name: 'Social : ', value: req.params.social },
