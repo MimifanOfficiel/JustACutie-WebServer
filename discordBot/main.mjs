@@ -1,6 +1,9 @@
-import Discord from 'discord.js';
+import Discord, { Events, REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
+
 dotenv.config();
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+
 
 export const client = new Discord.Client({
     intents: [
@@ -17,9 +20,45 @@ client.login(process.env.DISCORD_TOKEN);
 client.on('ready', async () => {
     guild = await client.guilds.fetch("1228013193092141096").then(guild => {
         const channel = guild.channels.cache.get('1228013193708961935');
-        channel.send("Haiii, I'm online to assist Mommy :3");
+        // channel.send("Haiii, I'm online to assist Mommy :3");
         return guild;
     });
 
 });
 
+
+const commands = [];
+
+// Ping Command
+const { default: ping } = await import('./commands/ping/ping.mjs');
+commands.push({ name: ping.name, description: ping.description, execute: ping.execute });
+
+// Popup Command
+const { default: popup } = await import('./commands/popup/popup.mjs');
+commands.push({ name: popup.name, description: popup.description, execute: popup.execute });
+
+try {
+    
+    await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
+    console.log("Successfully registered application commands.");
+    
+} catch (error) {
+    console.error(error);
+}
+
+
+client.on(Events.InteractionCreate, async interaction => {
+    if (!interaction.isChatInputCommand()) return;
+
+    const { commandName } = interaction;
+
+    if(!commands.find(command => command.name === commandName)) return;
+
+    try {
+        const command = commands.find(command => command.name === commandName);
+        await command.execute(interaction);
+    } catch (error) {
+        console.error(error);
+        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    }
+});
