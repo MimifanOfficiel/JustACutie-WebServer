@@ -45,7 +45,11 @@ app.get('/download', (req, res) => {
 app.get('/wallpaper', (req, res) => {
     const files = fs.readdirSync(path.join('public'));
     const randomFile = files[Math.floor(Math.random() * files.length)];
-    res.download(path.join('public', randomFile));
+    res.redirect(`/images/${randomFile}`);
+});
+
+app.get('images/:image', (req, res) => {
+    res.download(path.join('public', req.params.image));
 });
 
 app.get('/social/:social', (req, res) => {
