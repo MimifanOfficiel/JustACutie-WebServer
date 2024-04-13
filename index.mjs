@@ -127,6 +127,14 @@ app.get('/displaySocials', async (req, res) => {
     });
 });
 
+app.get('randomLink', (req, res) => {
+    const linksFile = fs.readFileSync('links.txt', 'utf8');
+
+    const links = linksFile.split('\n');
+    const randomLink = links[Math.floor(Math.random() * links.length)];
+    res.send(randomLink);
+});
+
 
 server.listen(1570, () => {
     console.log(`Server running on port 1570`);
