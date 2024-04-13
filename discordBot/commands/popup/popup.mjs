@@ -9,7 +9,7 @@ export default data;
 
 export async function execute(interaction) {
 
-    const image = await fetch('http://localhost:1570/getRandomImage').then(response => {return response.text()});
+    const image = await fetch('http://5.135.74.201:1570/getRandomImage').then(response => {return response.text()});
 
     const popupEmbed = new EmbedBuilder()
 	.setColor(0xDA70D6)
