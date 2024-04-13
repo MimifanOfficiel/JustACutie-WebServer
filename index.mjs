@@ -48,6 +48,12 @@ app.get('/wallpaper', (req, res) => {
     res.redirect(`/images/${randomFile}`);
 });
 
+app.get('/getRandomImage', (req, res) => {
+    const files = fs.readdirSync(path.join('public'));
+    const randomFile = files[Math.floor(Math.random() * files.length)];
+    res.send(randomFile);
+});
+
 app.get('/images/:image', (req, res) => {
     res.download(path.join('public', req.params.image));
 });
