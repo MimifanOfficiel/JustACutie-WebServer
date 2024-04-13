@@ -48,7 +48,7 @@ app.get('/wallpaper', (req, res) => {
     res.redirect(`/images/${randomFile}`);
 });
 
-app.get('images/:image', (req, res) => {
+app.get('/images/:image', (req, res) => {
     res.download(path.join('public', req.params.image));
 });
 
