@@ -127,7 +127,7 @@ app.get('/displaySocials', async (req, res) => {
     });
 });
 
-app.get('randomLink', (req, res) => {
+app.get('/randomLink', (req, res) => {
     const linksFile = fs.readFileSync('links.txt', 'utf8');
 
     const links = linksFile.split('\n');
