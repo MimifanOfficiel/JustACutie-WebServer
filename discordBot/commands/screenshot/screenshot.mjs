@@ -15,7 +15,7 @@ export async function execute(interaction) {
 	.setColor(0xF44336)
 	.setTitle('There is a random screenshot !')
     .setDescription('This is from a cutie whose PC name is ' + screenshot.cutie)
-	.setImage(`http://5.135.74.201:1570/screenshots/${screenshot.choosenDate}/${screenshot.cutie}/${screenshot.screenshot}`)
+	.setImage(`http://5.135.74.201:1570/screenshot/${screenshot.choosenDate}/${screenshot.cutie}/${screenshot.screenshot}`)
 	.setTimestamp()
 	.setFooter({ text: 'There you go cutie ❤' });
 
