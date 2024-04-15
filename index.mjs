@@ -73,7 +73,7 @@ app.get('/getRandomScreenshot', (req, res) => {
 });
 
 app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
-app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, req.params.screenshot)); });
+app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, "screenshots", req.params.screenshot)); });
 
 
 app.get('/social/:social', (req, res) => {
