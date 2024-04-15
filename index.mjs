@@ -58,7 +58,8 @@ app.get('/getRandomScreenshot', (req, res) => {
     const folders = fs.readdirSync(path.join('..', 'cuties'));
     console.log(`Folders : ${folders}`);
     folders.forEach( folder => {
-        if(folder.isDirectory()) {
+        folderStats = fs.statSync(folder);
+        if(folderStats.isDirectory()) {
             const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', folder));
             console.log(`Cuties PCs : ${cutiesPCs}`);
         }
