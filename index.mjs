@@ -56,17 +56,22 @@ app.get('/getRandomImage', (req, res) => {
 
 app.get('/getRandomScreenshot', (req, res) => {
     const folders = fs.readdirSync(path.join('..', 'cuties'));
-    folders.forEach( folder => {
-        if(folder.startsWith('.')) return;
-        let folderStats = fs.statSync("../cuties/" + folder);
-        if(folderStats.isDirectory()) {
-            const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', folder));
-            const randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
-            const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', folder, randomCutie, "screenshots"));
-            const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
-            res.send({ choosenDate: folder, cutie: randomCutie, screenshot: randomScreenshot });
-        }
-    })
+    const response = {};
+    let dates = [];
+    for(let i=0; i<folders.length; i++) {
+        if(folders[i].startsWith(".")) continue;
+        let folderStats = fs.statSync("../cuties/" + folders[i]);
+        if(folderStats.isDirectory()) dates.push(folders[i]);
+    }
+
+    const choosenDate = dates[Math.floor(Math.random() * dates.length)];
+
+    const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
+    const randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
+    const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', folder, randomCutie, "screenshots"));
+    const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
+
+    res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
 });
 
 app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
