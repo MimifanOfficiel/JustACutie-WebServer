@@ -62,7 +62,10 @@ app.get('/getRandomScreenshot', (req, res) => {
         let folderStats = fs.statSync("../cuties/" + folder);
         if(folderStats.isDirectory()) {
             const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', folder));
-            console.log(`Cuties PCs : ${cutiesPCs}`);
+            const randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
+            const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', folder, randomCutie, "screenshots"));
+            const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
+            res.send(randomScreenshot);
         }
     })
 });
