@@ -65,12 +65,13 @@ app.get('/getRandomScreenshot', (req, res) => {
             const randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
             const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', folder, randomCutie, "screenshots"));
             const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
-            res.send(randomScreenshot);
+            res.send({ cutie: folder, screenshot: randomScreenshot });
         }
     })
 });
 
 app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
+app.get('/screenshot/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.cutie, req.params.screenshot)); });
 
 
 app.get('/social/:social', (req, res) => {

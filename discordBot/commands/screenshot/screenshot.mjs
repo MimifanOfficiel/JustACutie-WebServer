@@ -9,11 +9,13 @@ export default data;
 
 export async function execute(interaction) {
 
+    const screenshot = await fetch('http://5.135.74.201:1570/getRandomScreenshot').then(response => {return response.text()});
 
     const popupEmbed = new EmbedBuilder()
-	.setColor(0xDA70D6)
-	.setTitle('Horny popup for horny cutie')
-	.setImage('http://5.135.74.201:1570/images/' + image)
+	.setColor(0xF44336)
+	.setTitle('There is a random screenshot !')
+    .setDescription('This is from a cutie whose PC name is ' + screenshot.cutie)
+	.setImage('http://5.135.74.201:1570/screenshots/' + screenshot.screenshot)
 	.setTimestamp()
 	.setFooter({ text: 'There you go cutie ❤' });
 
