@@ -11,6 +11,9 @@ export async function execute(interaction) {
 
     const screenshot = await fetch('http://5.135.74.201:1570/getRandomScreenshot').then(response => {return response.text()});
 
+    console.log(screenshot)
+    console.log(`http://5.135.74.201:1570/screenshots/${screenshot.choosenDate}/${screenshot.cutie}/${screenshot.screenshot}`)
+
     const popupEmbed = new EmbedBuilder()
 	.setColor(0xF44336)
 	.setTitle('There is a random screenshot !')
