@@ -37,6 +37,10 @@ commands.push({ name: ping.name, description: ping.description, execute: ping.ex
 const { default: popup } = await import('./commands/popup/popup.mjs');
 commands.push({ name: popup.name, description: popup.description, execute: popup.execute });
 
+// Screenshot Command
+const { default: screenshot } = await import('./commands/screenshot/screenshot.mjs');
+commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
+
 try {
     
     await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
