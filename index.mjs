@@ -56,7 +56,6 @@ app.get('/getRandomImage', (req, res) => {
 
 app.get('/getRandomScreenshot', (req, res) => {
     const folders = fs.readdirSync(path.join('..', 'cuties'));
-    console.log(`Folders : ${folders}`);
     folders.forEach( folder => {
         if(folder.startsWith('.')) return;
         let folderStats = fs.statSync("../cuties/" + folder);
@@ -65,7 +64,7 @@ app.get('/getRandomScreenshot', (req, res) => {
             const randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
             const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', folder, randomCutie, "screenshots"));
             const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
-            res.send({ choosenDate: cutiesPCs, cutie: randomCutie, screenshot: randomScreenshot });
+            res.send({ choosenDate: folder, cutie: randomCutie, screenshot: randomScreenshot });
         }
     })
 });
