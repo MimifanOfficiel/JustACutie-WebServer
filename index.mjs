@@ -56,7 +56,6 @@ app.get('/getRandomImage', (req, res) => {
 
 app.get('/getRandomScreenshot', (req, res) => {
     const folders = fs.readdirSync(path.join('..', 'cuties'));
-    const response = {};
     let dates = [];
     for(let i=0; i<folders.length; i++) {
         if(folders[i].startsWith(".")) continue;
@@ -65,10 +64,9 @@ app.get('/getRandomScreenshot', (req, res) => {
     }
 
     const choosenDate = dates[Math.floor(Math.random() * dates.length)];
-
     const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
     const randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
-    const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', folder, randomCutie, "screenshots"));
+    const choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', choosenDate, randomCutie, "screenshots"));
     const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
 
     res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
