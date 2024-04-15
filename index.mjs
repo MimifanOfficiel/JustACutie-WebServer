@@ -55,10 +55,14 @@ app.get('/getRandomImage', (req, res) => {
 });
 
 app.get('/getRandomScreenshot', (req, res) => {
-    const files = fs.readdirSync(path.join('..', 'cuties'));
-    console.log(files);
-    // const randomFile = files[Math.floor(Math.random() * files.length)];
-    // res.send(randomFile);
+    const folders = fs.readdirSync(path.join('..', 'cuties'));
+    console.log(`Folders : ${folders}`);
+    folders.forEach( folder => {
+        if(folder.isDirectory()) {
+            const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', folder));
+            console.log(`Cuties PCs : ${cutiesPCs}`);
+        }
+    })
 });
 
 app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
