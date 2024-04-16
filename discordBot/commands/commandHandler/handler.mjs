@@ -19,9 +19,10 @@ const commands = [];
 
 export function importCommands() {
     
-    const commandsFolders = fs.readdirSync(path.join('..'));
+    const commandsFolders = fs.readdirSync(path.join('discordBot', 'commands'));
     commandsFolders.forEach(async folder => {
         if(folder.startsWith("commandHandler")) return;
+        console.log(folder);
         const { default: command } = await import(`../${folder}/${folder}.mjs`);
         commands.push({ name: command.name, description: command.description, execute: command.execute });
     });
