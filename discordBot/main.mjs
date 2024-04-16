@@ -5,7 +5,7 @@ import { registerCommands, importCommands, handleCommand } from './commands/comm
 
 
 dotenv.config();
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+export const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
 
 export const client = new Discord.Client({

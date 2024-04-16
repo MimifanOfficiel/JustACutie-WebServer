@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { Events } from 'discord.js';
+import { rest } from '../../main.mjs';
 
 const commands = [];
 
