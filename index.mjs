@@ -67,11 +67,12 @@ app.get('/getRandomScreenshot', (req, res) => {
     const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
     let randomCutie;
     let choosenCutieScreenShots = [];
+    
     do {
         randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
         choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', choosenDate, randomCutie, "screenshots"));
-        
     } while(choosenCutieScreenShots.length == 0);
+
     const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
 
     res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
