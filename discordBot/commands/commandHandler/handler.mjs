@@ -16,22 +16,25 @@ const commands = [];
 // const { default: screenshot } = await import('../commands/screenshot/screenshot.mjs');
 // commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
 
-const commandsFolders = path.join('..');
-commandsFolders.forEach(async folder => {
-    if(folder.includes("commandHandler")) return;
-    const { default: command } = await import(`../commands/${folder}/${folder}.mjs`);
-    commands.push({ name: command.name, description: command.description, execute: command.execute });
-});
+export function importCommands() {
+    
+    const commandsFolders = path.join('..');
+    commandsFolders.forEach(async folder => {
+        if(folder.includes("commandHandler")) return;
+        const { default: command } = await import(`../commands/${folder}/${folder}.mjs`);
+        commands.push({ name: command.name, description: command.description, execute: command.execute });
+    });
 
-try {
-    
-    await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
-    console.log("Successfully registered application commands.");
-    
-} catch (error) {
-    console.error(error);
 }
 
+export async function registerCommands() {
+    try {
+        await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
+        console.log("Successfully registered application commands.");
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
