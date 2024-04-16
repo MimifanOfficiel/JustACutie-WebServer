@@ -31,7 +31,7 @@ export async function memberJoinEventHandler(member) {
     const memberNumberText = `You are the ${guild.memberCount}th member`;
     const memberNumberTextWidth = ctx.measureText(memberNumberText).width;
     const memberNumberTextX = (canvas.width - memberNumberTextWidth) / 2;
-    ctx.fillText(memberNumberText, memberNumberTextX, canvas.height / 2 + 60);
+    ctx.fillText(memberNumberText, memberNumberTextX, canvas.height - 30);
 
     // Send the image as an attachment
     const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'welcome_image.png' });
