@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 export const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
-import { handleCommand } from './commands/commandHandler/handler.mjs';
+// import { handleCommand } from './commands/commandHandler/handler.mjs';
 
 
 export const client = new Discord.Client({
@@ -56,4 +56,22 @@ try {
     console.error(error);
 }
 
-handleCommand(client);
+
+client.on(Events.InteractionCreate, async interaction => {
+    if (!interaction.isChatInputCommand()) return;
+
+    const { commandName } = interaction;
+
+    if(!commands.find(command => command.name === commandName)) return;
+
+    try {
+        const command = commands.find(command => command.name === commandName);
+        await command.execute(interaction);
+    } catch (error) {
+        console.error(error);
+        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    }
+});
+
+
+// handleCommand(client);

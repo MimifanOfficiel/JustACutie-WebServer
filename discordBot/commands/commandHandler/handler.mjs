@@ -34,20 +34,20 @@ import { Events, Routes } from 'discord.js';
 
 export function handleCommand(client) {
 
-    client.on(Events.InteractionCreate, async interaction => {
-        if (!interaction.isChatInputCommand()) return;
+    // client.on(Events.InteractionCreate, async interaction => {
+    //     if (!interaction.isChatInputCommand()) return;
     
-        const { commandName } = interaction;
+    //     const { commandName } = interaction;
     
-        if(!commands.find(command => command.name === commandName)) return;
+    //     if(!commands.find(command => command.name === commandName)) return;
     
-        try {
-            const command = commands.find(command => command.name === commandName);
-            await command.execute(interaction);
-        } catch (error) {
-            console.error(error);
-            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-        }
-    });
+    //     try {
+    //         const command = commands.find(command => command.name === commandName);
+    //         await command.execute(interaction);
+    //     } catch (error) {
+    //         console.error(error);
+    //         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    //     }
+    // });
 
 }
