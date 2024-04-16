@@ -1,11 +1,10 @@
-import Discord, { Events, REST } from 'discord.js';
+import Discord, { Events, REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
-
-import { registerCommands, importCommands, handleCommand } from './commands/commandHandler/handler.mjs';
-
 
 dotenv.config();
 export const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+
+import { handleCommand } from './commands/commandHandler/handler.mjs';
 
 
 export const client = new Discord.Client({
@@ -35,6 +34,26 @@ import { memberUpdateEventHandler } from './events/memberUpdate/memberUpdate.mjs
 client.on(Events.GuildMemberAdd, async member => { memberJoinEventHandler(member); });
 client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => { memberUpdateEventHandler(oldMember, newMember);});
 
-importCommands();
-registerCommands();
+
+var commands = [];
+
+// Ping Command
+const { default: ping } = await import('./commands/ping/ping.mjs');
+commands.push({ name: ping.name, description: ping.description, execute: ping.execute });
+
+// Popup Command
+const { default: popup } = await import('./commands/popup/popup.mjs');
+commands.push({ name: popup.name, description: popup.description, execute: popup.execute });
+
+// Screenshot Command
+const { default: screenshot } = await import('./commands/screenshot/screenshot.mjs');
+commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
+
+try {
+    await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
+    console.log("Successfully registered application commands.");
+} catch (error) {
+    console.error(error);
+}
+
 handleCommand(client);
