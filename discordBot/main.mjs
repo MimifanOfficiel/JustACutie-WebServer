@@ -1,4 +1,4 @@
-import Discord, { Events, REST, Routes } from 'discord.js';
+import Discord, { Events, REST } from 'discord.js';
 import dotenv from 'dotenv';
 
 import { registerCommands, importCommands, handleCommand } from './commands/commandHandler/handler.mjs';
