@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 
 const commands = [];
 
@@ -16,7 +17,7 @@ const commands = [];
 
 export function importCommands() {
     
-    const commandsFolders = path.join('..');
+    const commandsFolders = fs.readdirSync(path.join('..'));
     commandsFolders.forEach(async folder => {
         if(folder.includes("commandHandler")) return;
         const { default: command } = await import(`../commands/${folder}/${folder}.mjs`);
