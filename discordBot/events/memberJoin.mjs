@@ -1,7 +1,5 @@
-import { EmbedBuilder, cleanCodeBlockContent, AttachmentBuilder } from "discord.js";
-import { Canvas } from "canvas";
+import { AttachmentBuilder } from "discord.js";
 import { createCanvas, loadImage } from "canvas";
-
 
 import { guild } from '../main.mjs';
 
