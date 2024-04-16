@@ -1,5 +1,6 @@
 import { EmbedBuilder, cleanCodeBlockContent } from "discord.js";
 import { registerFont, createCanvas, loadImage } from "canvas";
+import { Canvas } from "canvas";
 
 import { guild } from '../main.mjs';
 
