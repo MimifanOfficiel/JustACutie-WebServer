@@ -50,8 +50,8 @@ const { default: screenshot } = await import('./commands/screenshot/screenshot.m
 commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
 
 // UserInfo Command
-const { default: userInfo } = await import('./commands/userInfos/userInfos.mjs');
-commands.push({ name: userInfo.name, description: userInfo.description, execute: userInfo.execute, options: userInfo.options });
+// const { default: userInfo } = await import('./commands/userInfos/userInfos.mjs');
+// commands.push({ name: userInfo.name, description: userInfo.description, execute: userInfo.execute, options: userInfo.options });
 
 try {
     await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
