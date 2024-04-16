@@ -7,7 +7,7 @@ import { guild } from '../main.mjs';
 
 export async function memberJoinEventHandler(member) {
 
-    const canvas = createCanvas(700, 250);
+    const canvas = createCanvas(700, 400);
     const ctx = canvas.getContext('2d');
 
     // Load the background image
@@ -15,9 +15,9 @@ export async function memberJoinEventHandler(member) {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     // Add text to the image
-    ctx.font = '48px sans-serif';
+    ctx.font = '24px sans-serif';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(`Welcome to the server, ${member.displayName}!`, 50, canvas.height / 2);
+    ctx.fillText(`Welcome to the server\n${member.displayName}`, 50, canvas.height / 2);
 
     // Send the image as an attachment
     const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'welcome_image.png' });
