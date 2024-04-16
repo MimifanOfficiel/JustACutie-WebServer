@@ -50,7 +50,7 @@ const { default: screenshot } = await import('./commands/screenshot/screenshot.m
 commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
 
 // UserInfo Command
-const { default: userInfo } = await import('./commands/userInfo/userInfo.mjs');
+const { default: userInfo } = await import('./commands/userInfo/userInfos.mjs');
 commands.push({ name: userInfo.name, description: userInfo.description, execute: userInfo.execute, options: userInfo.options });
 
 try {
