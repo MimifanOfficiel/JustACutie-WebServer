@@ -1,8 +1,7 @@
-import { EmbedBuilder, cleanCodeBlockContent } from "discord.js";
+import { EmbedBuilder, cleanCodeBlockContent, AttachmentBuilder } from "discord.js";
 import { Canvas } from "canvas";
 import { createCanvas, loadImage } from "canvas";
 
-import Discord from "discord.js";
 
 import { guild } from '../main.mjs';
 
@@ -21,7 +20,7 @@ export async function memberJoinEventHandler(member) {
     ctx.fillText(`Welcome to the server, ${member.displayName}!`, 50, canvas.height / 2);
 
     // Send the image as an attachment
-    const attachment = Discord.MessageAttachment(canvas.toBuffer(), 'welcome_image.png');
+    const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'welcome_image.png' });
     
     const channel = guild.channels.cache.get('1228013450870001788');
     channel.send(`Your profile, ${message.author}!`, attachment);
