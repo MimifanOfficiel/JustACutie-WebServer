@@ -22,7 +22,7 @@ client.login(process.env.DISCORD_TOKEN);
 
 client.on('ready', async () => {
     guild = await client.guilds.fetch("1228013193092141096").then(guild => {
-        // const channel = guild.channels.cache.get('1228013193708961935');
+        const channel = guild.channels.cache.get('1228013193708961935');
         // channel.send("Haiii, I'm online to assist Mommy :3");
         return guild;
     });
@@ -33,7 +33,7 @@ import { memberJoinEventHandler } from './events/memberJoin.mjs';
 import { memberUpdateEventHandler } from './events/memberUpdate/memberUpdate.mjs';
 
 client.on(Events.GuildMemberAdd, async member => { memberJoinEventHandler(member); });
-client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => { memberUpdateEventHandler(oldMember, newMember); });
+client.on(Events.GuildMemberUpdate, async (oldMember, newMember) => { memberUpdateEventHandler(oldMember, newMember);});
 
 importCommands();
 registerCommands();

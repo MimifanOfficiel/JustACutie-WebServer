@@ -3,45 +3,22 @@ import fs from 'fs';
 import { Events, Routes } from 'discord.js';
 import { rest } from '../../main.mjs';
 
-var commands = [];
+const commands = [];
 
 export function importCommands() {
-    // const commandsFolders = fs.readdirSync(path.join('discordBot', 'commands'));
-    // commandsFolders.forEach(folder => {
-    //     if(folder.startsWith("commandHandler")) return;
-    //     const commandFiles = fs.readdirSync(path.join('discordBot', 'commands', folder)).filter(file => file.endsWith('.mjs'));
-    //     commandFiles.forEach( (file) => {
-    //         return new Promise(async (resolve, reject) => {
-    //             console.log(`Importing ${file}`)
-    //             const { default: command } = await import(`../../commands/${folder}/${file}`);
-    //             // commands.push(command);
-    //             commands.push({ name: command.name, description: command.description, execute: command.execute });
-    //         });
-    //     }).then(() => {
-    //         console.log("Imported commands: ", commands);
-    //     });
-    // });
-
-    return new Promise((resolve, reject) => {
-        const commandsFolder = fs.readdirSync(path.join('discordBot', 'commands'));
-        commandsFolder.forEach(commandFolder => {
-            if(commandFolder.startsWith("commandHandler")) return;
-            const commandFiles = fs.readdirSync(path.join('discordBot', 'commands', commandFolder)).filter(file => file.endsWith('.mjs'));
-            commandFiles.forEach(async file => {
-                const { default: command } = await import(`../../commands/${commandFolder}/${file}`);
-                console.log(command)
-                commands.push(command);
-            });
     
-        });
-        resolve(commands);
+    const commandsFolders = fs.readdirSync(path.join('discordBot', 'commands'));
+    commandsFolders.forEach(async folder => {
+        if(folder.startsWith("commandHandler")) return;
+        console.log(folder);
+        const { default: command } = await import(`../${folder}/${folder}.mjs`);
+        commands.push({ name: command.name, description: command.description, execute: command.execute });
     });
 
 }
 
 
 export async function registerCommands() {
-    console.log(commands)
     try {
         await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
         console.log("Successfully registered application commands.");
