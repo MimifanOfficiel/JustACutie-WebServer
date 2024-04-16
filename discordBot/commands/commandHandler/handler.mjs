@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { Events } from 'discord.js';
 
 const commands = [];
 
