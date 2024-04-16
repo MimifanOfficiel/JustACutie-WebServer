@@ -4,14 +4,14 @@ const data = {
     name: 'avatar',
     description: "Replies with a user's avatar!",
     execute: execute,
-    // options : [
-    //     {
-    //         name: 'user',
-    //         type: 'USER',
-    //         description: 'The user',
-    //         required: true,
-    //     },
-    // ],
+    options : [
+        {
+            name: 'user',
+            type: 'USER',
+            description: 'The user',
+            required: true,
+        },
+    ],
 };
 export default data;
 

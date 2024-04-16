@@ -49,6 +49,10 @@ commands.push({ name: popup.name, description: popup.description, execute: popup
 const { default: screenshot } = await import('./commands/screenshot/screenshot.mjs');
 commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
 
+// UserInfo Command
+const { default: userInfo } = await import('./commands/userInfo/userInfo.mjs');
+commands.push({ name: userInfo.name, description: userInfo.description, execute: userInfo.execute, options: userInfo.options });
+
 try {
     await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
     console.log("Successfully registered application commands.");
