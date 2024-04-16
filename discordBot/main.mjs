@@ -1,6 +1,8 @@
 import Discord, { Events, REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 
+import { registerCommands, importCommands, handleCommand } from './commands/commandHandler/handler.mjs';
+
 
 dotenv.config();
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
@@ -31,3 +33,4 @@ client.on('ready', async () => {
 
 importCommands();
 registerCommands();
+handleCommand(client);

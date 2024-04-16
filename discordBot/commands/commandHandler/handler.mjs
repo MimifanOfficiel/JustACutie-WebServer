@@ -1,11 +1,9 @@
-import { client } from '../../main.mjs';
-
 import path from 'path';
 
 const commands = [];
 
 // // Ping Command
-// const { default: ping } = await import('../commands/ping/ping.mjs');
+// const { default: ping } = await import('.ommands/ping/ping.mjs');
 // commands.push({ name: ping.name, description: ping.description, execute: ping.execute });
 
 // // Popup Command
@@ -27,6 +25,7 @@ export function importCommands() {
 
 }
 
+
 export async function registerCommands() {
     try {
         await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT), {body: commands});
@@ -36,18 +35,24 @@ export async function registerCommands() {
     }
 }
 
-client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) return;
 
-    const { commandName } = interaction;
 
-    if(!commands.find(command => command.name === commandName)) return;
+export function handleCommand(client) {
 
-    try {
-        const command = commands.find(command => command.name === commandName);
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
-    }
-});
+    client.on(Events.InteractionCreate, async interaction => {
+        if (!interaction.isChatInputCommand()) return;
+    
+        const { commandName } = interaction;
+    
+        if(!commands.find(command => command.name === commandName)) return;
+    
+        try {
+            const command = commands.find(command => command.name === commandName);
+            await command.execute(interaction);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
+    });
+
+}
