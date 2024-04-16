@@ -16,8 +16,6 @@ export const client = new Discord.Client({
     ]
 });
 
-import { registerCommands, importCommands } from './commands/commandHandler/handler.mjs';
-
 export var guild;
 
 client.login(process.env.DISCORD_TOKEN);
