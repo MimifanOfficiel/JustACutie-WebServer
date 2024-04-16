@@ -20,7 +20,7 @@ export function importCommands() {
     
     const commandsFolders = fs.readdirSync(path.join('..'));
     commandsFolders.forEach(async folder => {
-        if(folder.includes("commandHandler")) return;
+        if(folder.startsWith("commandHandler")) return;
         const { default: command } = await import(`../${folder}/${folder}.mjs`);
         commands.push({ name: command.name, description: command.description, execute: command.execute });
     });
