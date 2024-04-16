@@ -17,9 +17,21 @@ export async function memberJoinEventHandler(member) {
     // Add text to the image
     ctx.font = '24px sans-serif';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText(`Welcome to the server`, canvas.width/2-50, canvas.height / 2);
-    ctx.fillText(`${member.user.username}!`, canvas.width/2-50, canvas.height / 2 + 30);
-    ctx.fillText(`You are the ${guild.memberCount}th member`, canvas.width/2-50, canvas.height / 2 + 60);
+
+    const welcomeText = 'Welcome to the server';
+    const welcomeTextWidth = ctx.measureText(welcomeText).width;
+    const welcomeTextX = (canvas.width - welcomeTextWidth) / 2;
+    ctx.fillText(welcomeText, welcomeTextX, canvas.height / 2);
+
+    const memberText = `${member.user.username}!`;
+    const memberTextWidth = ctx.measureText(memberText).width;
+    const memberTextX = (canvas.width - memberTextWidth) / 2;
+    ctx.fillText(memberText, memberTextX, canvas.height / 2 + 30);
+
+    const memberNumberText = `You are the ${guild.memberCount}th member`;
+    const memberNumberTextWidth = ctx.measureText(memberNumberText).width;
+    const memberNumberTextX = (canvas.width - memberNumberTextWidth) / 2;
+    ctx.fillText(memberNumberText, memberNumberTextX, canvas.height / 2 + 60);
 
     // Send the image as an attachment
     const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'welcome_image.png' });
