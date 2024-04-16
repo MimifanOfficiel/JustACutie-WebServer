@@ -21,12 +21,12 @@ export async function memberJoinEventHandler(member) {
     const welcomeText = 'Welcome to the server';
     const welcomeTextWidth = ctx.measureText(welcomeText).width;
     const welcomeTextX = (canvas.width - welcomeTextWidth) / 2;
-    ctx.fillText(welcomeText, welcomeTextX, canvas.height / 2);
+    ctx.fillText(welcomeText, welcomeTextX, canvas.height / 2 -30);
 
     const memberText = `${member.user.username}!`;
     const memberTextWidth = ctx.measureText(memberText).width;
     const memberTextX = (canvas.width - memberTextWidth) / 2;
-    ctx.fillText(memberText, memberTextX, canvas.height / 2 + 30);
+    ctx.fillText(memberText, memberTextX, canvas.height / 2);
 
     const memberNumberText = `You are the ${guild.memberCount}th member`;
     const memberNumberTextWidth = ctx.measureText(memberNumberText).width;
