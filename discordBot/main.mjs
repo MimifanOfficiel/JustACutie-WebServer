@@ -2,6 +2,7 @@ import Discord, { Events, REST } from 'discord.js';
 import dotenv from 'dotenv';
 
 import { registerCommands, importCommands, handleCommand } from './commands/commandHandler/handler.mjs';
+import { memberJoinEventHandler } from './events/memberJoin.mjs';
 
 
 dotenv.config();
@@ -28,6 +29,8 @@ client.on('ready', async () => {
     });
 
 });
+
+client.on(Events.GuildMemberAdd, async member => { memberJoinEventHandler(member); });
 
 importCommands();
 registerCommands();

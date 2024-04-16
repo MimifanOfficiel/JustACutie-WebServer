@@ -5,24 +5,11 @@ import { rest } from '../../main.mjs';
 
 const commands = [];
 
-// // Ping Command
-// const { default: ping } = await import('.ommands/ping/ping.mjs');
-// commands.push({ name: ping.name, description: ping.description, execute: ping.execute });
-
-// // Popup Command
-// const { default: popup } = await import('../commands/popup/popup.mjs');
-// commands.push({ name: popup.name, description: popup.description, execute: popup.execute });
-
-// // Screenshot Command
-// const { default: screenshot } = await import('../commands/screenshot/screenshot.mjs');
-// commands.push({ name: screenshot.name, description: screenshot.description, execute: screenshot.execute });
-
 export function importCommands() {
     
     const commandsFolders = fs.readdirSync(path.join('discordBot', 'commands'));
     commandsFolders.forEach(async folder => {
         if(folder.startsWith("commandHandler")) return;
-        console.log(folder);
         const { default: command } = await import(`../${folder}/${folder}.mjs`);
         commands.push({ name: command.name, description: command.description, execute: command.execute });
     });
