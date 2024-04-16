@@ -1,7 +1,7 @@
 import { EmbedBuilder, cleanCodeBlockContent } from "discord.js";
 import { registerFont, createCanvas, loadImage } from "canvas";
 
-import guild from '../main.mjs';
+import { guild } from '../main.mjs';
 
 export async function memberJoinEventHandler(member) {
 
