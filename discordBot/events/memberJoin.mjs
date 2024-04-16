@@ -10,7 +10,7 @@ export async function memberJoinEventHandler(member) {
     const ctx = canvas.getContext('2d');
 
     // Load the background image
-    const background = await loadImage('./welcome.jpg');
+    const background = await loadImage('./discordBot/events/welcome.jpg');
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     // Add text to the image
