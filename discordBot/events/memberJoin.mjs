@@ -1,15 +1,16 @@
 import { EmbedBuilder, cleanCodeBlockContent } from "discord.js";
 import { Canvas } from "canvas";
+import { createCanvas, loadImage } from "canvas";
 
 import { guild } from '../main.mjs';
 
 export async function memberJoinEventHandler(member) {
 
-    const canvas = Canvas.createCanvas(700, 250);
+    const canvas = createCanvas(700, 250);
     const ctx = canvas.getContext('2d');
 
     // Load the background image
-    const background = await Canvas.loadImage('http://5.135.74.201/images/661cbb80d900f1b520d50074.png.jpg');
+    const background = await loadImage('http://5.135.74.201/images/661cbb80d900f1b520d50074.png.jpg');
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     // Add text to the image
