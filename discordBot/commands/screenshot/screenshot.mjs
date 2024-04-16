@@ -1,5 +1,4 @@
 import { EmbedBuilder } from "discord.js";
-import { EmbedBuilder } from "discord.js";
 
 const data = {
     name: 'screenshot',
