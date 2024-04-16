@@ -23,7 +23,7 @@ export async function memberJoinEventHandler(member) {
     const attachment = new AttachmentBuilder(canvas.toBuffer(), { name: 'welcome_image.png' });
     
     const channel = guild.channels.cache.get('1228013450870001788');
-    channel.send(`Your profile, ${message.author}!`, attachment);
+    channel.send(`Your profile!`, attachment);
 
 
 }
