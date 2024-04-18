@@ -70,7 +70,18 @@ client.on(Events.InteractionCreate, async interaction => {
 
     try {
         const command = commands.find(command => command.name === commandName);
-        await command.execute(interaction);
+
+        const userID = interaction.user.id;
+        const user = await guild.members.fetch(userID);
+
+        if(!user.roles.cache.some(role => role.name === 'Admin')) {
+            if(interaction.channelId === '1228724504230891612')
+            await interaction.reply({ content: "You don't have permission to use this command in this channel!", ephemeral: true });
+            return;
+        } else {
+            await command.execute(interaction);
+        }
+
     } catch (error) {
         console.error(error);
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
