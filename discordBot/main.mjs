@@ -75,8 +75,8 @@ client.on(Events.InteractionCreate, async interaction => {
         const user = await guild.members.fetch(userID);
 
         if(!user.roles.cache.some(role => role.name === 'Admin')) {
-            if(interaction.channelId === '1228724504230891612')
-            await interaction.reply({ content: "You don't have permission to use this command in this channel!", ephemeral: true });
+            if(interaction.channelId === '1228724504230891612') command.execute(interaction);
+            else await interaction.reply({ content: "You don't have permission to use this command in this channel!", ephemeral: true });
             return;
         } else {
             await command.execute(interaction);
