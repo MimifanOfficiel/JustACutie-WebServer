@@ -23,13 +23,13 @@ export async function execute(interaction) {
     lastExecutionTime = currentTime;
 
     // Rest of the code...
-    const screenshot = await fetch('http://5.135.74.201:1570/getRandomScreenshot').then(response => {return response.json()});
+    const screenshot = await fetch('http://cuties.vps.boxtoplay.com:1570/getRandomScreenshot').then(response => {return response.json()});
 
     const popupEmbed = new EmbedBuilder()
         .setColor(0xF44336)
         .setTitle('There is a random screenshot !')
         .setDescription('This is from a cutie whose PC name is ' + screenshot.cutie)
-        .setImage(`http://5.135.74.201:1570/screenshot/${screenshot.choosenDate}/${screenshot.cutie}/${screenshot.screenshot}`)
+        .setImage(`http://cuties.vps.boxtoplay.com:1570/screenshot/${screenshot.choosenDate}/${screenshot.cutie}/${screenshot.screenshot}`)
         .setTimestamp()
         .setFooter({ text: 'There you go cutie ❤' });
 

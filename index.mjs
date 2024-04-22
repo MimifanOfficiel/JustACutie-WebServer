@@ -122,7 +122,7 @@ app.get('/addSocial/:social/:email/:username/:password/:discordUsername', (req, 
 	.setColor(0x0099FF)
 	.setTitle('A new account is shared')
     .setDescription(`${req.params.discordUsername} shared a new account :3`)
-	.setThumbnail(`http://5.135.74.201:1570/social/${req.params.social}`)
+	.setThumbnail(`http://cuties.vps.boxtoplay.com:1570/social/${req.params.social}`)
 	.addFields(
 		{ name: 'Social : ', value: req.params.social },
 		{ name: '\u200B', value: '\u200B' },
