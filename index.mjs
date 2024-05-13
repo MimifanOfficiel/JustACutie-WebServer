@@ -42,6 +42,10 @@ app.get('/download', (req, res) => {
     res.download("build/YouAreJustACutie.jar");
 });
 
+app.get('/downloadPopupAndWallpaper', (req, res) => {
+    res.download("build/YouAreJustACutie-PopupsWallpaper.jar");
+});
+
 app.get('/wallpaper', (req, res) => {
     const files = fs.readdirSync(path.join('public'));
     const randomFile = files[Math.floor(Math.random() * files.length)];
