@@ -99,6 +99,7 @@ app.get('/getPopupCooldown', (req, res) => {
                 function updateTimer() {
                     if (remainingTime <= 0) {
                         timer.innerHTML = "00:00:00";
+                        setTimeout(refreshTimer, 5000); // Refresh after 5 seconds
                         return;
                     }
                     
@@ -115,6 +116,10 @@ app.get('/getPopupCooldown', (req, res) => {
                 }
 
                 setInterval(updateTimer, 1000);
+            }
+
+            function refreshTimer() {
+                window.location.reload(true); // Reload the page to refresh the timer
             }
 
             window.onload = startTimer;
