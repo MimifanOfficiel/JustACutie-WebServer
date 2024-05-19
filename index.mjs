@@ -30,7 +30,6 @@ database.exec(createTables, (err) => {
 });
 
 
-
 app.use(express.static('/public'));
 
 app.get('/', (req, res) => {
@@ -38,14 +37,23 @@ app.get('/', (req, res) => {
 });
 
 
+
+
+
 // Related to Synced Program
 app.get('/downloadSynced', (req, res) => {
     res.download("build/SyncedCuties.jar");
 });
 
+app.use('/html', express.static('html'));
 
+
+// Cooldowns
 let dateOfNewPopup = new Date();
+let dateOfNewWallpaper = new Date();
 
+
+// Change next popup cooldown
 app.get('/setPopupCooldown/:timeBeforeNext', (req, res) => {
     const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
     const now = new Date();
@@ -53,81 +61,39 @@ app.get('/setPopupCooldown/:timeBeforeNext', (req, res) => {
     res.send(`Popup cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
 });
 
+
+// Change next wallpaper cooldown
+app.get('/setWallPaperCooldown/:timeBeforeNext', (req, res) => {
+    const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
+    const now = new Date();
+    dateOfNewWallpaper = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
+    res.send(`WallPaper cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
+});
+
+
+// Get time remaining before next Popup
 app.get('/getPopupCooldown', (req, res) => {
     const now = new Date();
     let diff = dateOfNewPopup - now;
     if (diff < 0) diff = 0;
 
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    res.json({ diff });
+});
 
-    const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Popup Cooldown Timer</title>
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                font-family: Arial, sans-serif;
-                background-color: #f0f0f0;
-            }
-            #timer {
-                font-size: 48px;
-                background-color: #ffffff;
-                padding: 20px;
-                border: 1px solid #ddd;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            }
-        </style>
-    </head>
-    <body>
-        <div id="timer">${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}</div>
-        <script>
-            let remainingTime = ${diff};
 
-            function startTimer() {
-                const timer = document.getElementById('timer');
+// Get time remaining before next Wallpaper
+app.get('/getWallpaperCooldown', (req, res) => {
+    const now = new Date();
+    let diff = dateOfNewWallpaper - now;
+    if (diff < 0) diff = 0;
 
-                function updateTimer() {
-                    if (remainingTime <= 0) {
-                        timer.innerHTML = "00:00:00";
-                        setTimeout(refreshTimer, 5000); // Refresh after 5 seconds
-                        return;
-                    }
-                    
-                    remainingTime -= 1000;
+    res.json({ diff });
+});
 
-                    const hours = Math.floor(remainingTime / (1000 * 60 * 60));
-                    const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-                    timer.innerHTML = 
-                        hours.toString().padStart(2, '0') + ":" +
-                        minutes.toString().padStart(2, '0') + ":" +
-                        seconds.toString().padStart(2, '0');
-                }
 
-                setInterval(updateTimer, 1000);
-            }
-
-            function refreshTimer() {
-                window.location.reload(true); // Reload the page to refresh the timer
-            }
-
-            window.onload = startTimer;
-        </script>
-    </body>
-    </html>
-    `;
-    res.send(html);
+app.get('/cooldown', (req, res) => {
+    res.redirect('./html/cooldown/cooldown.html');
 });
 
 
