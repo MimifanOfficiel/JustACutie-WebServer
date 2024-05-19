@@ -54,26 +54,28 @@ app.get('/', (req, res) => {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Upload d'image</title>
+        <title>Upload d'images</title>
       </head>
       <body>
-        <h1>Upload d'image</h1>
+        <h1>Upload d'images</h1>
         <form action="/upload" method="post" enctype="multipart/form-data">
-          <input type="file" name="image" accept="image/*" required />
+          <input type="file" name="images" accept="image/*" multiple required />
           <button type="submit">Upload</button>
         </form>
       </body>
       </html>
     `);
-});
-
-
-app.post('/upload', upload.single('image'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+  });
+  
+  // Route pour gérer l'upload des images
+  app.post('/upload', upload.array('images', 10), (req, res) => {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).send('No files uploaded.');
     }
-    res.send(`File uploaded successfully. <a href="/public/${req.file.filename}">View image</a>`);
-});
+  
+    const fileLinks = req.files.map(file => `<a href="/public/${file.filename}">${file.originalname}</a>`).join('<br>');
+    res.send(`Files uploaded successfully:<br>${fileLinks}`);
+  });
 
 
 
