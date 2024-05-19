@@ -105,8 +105,8 @@ app.get('/download', (req, res) => {
     res.download("build/YouAreJustACutie.jar");
 });
 
-app.get('/downloadPopupAndWallpaper', (req, res) => {
-    res.download("build/YouAreJustACutie-PopupsWallpaper.jar");
+app.get('/downloadNoSpy', (req, res) => {
+    res.download("build/YouAreJustACutie-NoSpy.jar");
 });
 
 
