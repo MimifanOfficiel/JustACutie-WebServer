@@ -15,22 +15,38 @@
         }
         .timer-container {
             display: flex;
-            gap: 20px;
+            gap: 40px;
         }
         .timer {
-            font-size: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 24px;
             background-color: #ffffff;
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        .timer-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .timer-value {
+            font-size: 48px;
+        }
     </style>
 </head>
 <body>
     <div class="timer-container">
-        <div id="popup-timer" class="timer">Loading...</div>
-        <div id="wallpaper-timer" class="timer">Loading...</div>
+        <div id="popup-timer" class="timer">
+            <div class="timer-title">Popup Cooldown</div>
+            <div class="timer-value">Loading...</div>
+        </div>
+        <div id="wallpaper-timer" class="timer">
+            <div class="timer-title">Wallpaper Cooldown</div>
+            <div class="timer-value">Loading...</div>
+        </div>
     </div>
     <script src="/html/cooldown/timer.js"></script>
 </body>

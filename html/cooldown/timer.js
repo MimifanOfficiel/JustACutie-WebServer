@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let remainingTime = data.diff;
 
                 function updateTimer() {
-                    const timer = document.getElementById(timerId);
+                    const timer = document.querySelector(`#${timerId} .timer-value`);
                     
                     if (remainingTime <= 0) {
                         timer.innerHTML = "00:00:00";
