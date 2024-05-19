@@ -6,6 +6,21 @@ import sqlite3 from 'sqlite3';
 import execPhp from 'exec-php';
 import { client, guild } from './discordBot/main.mjs';
 import { EmbedBuilder } from 'discord.js';
+import multer from 'multer';
+
+
+// Configuring Multer to store in public folder
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public');
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname)); // Adds timestamp to file
+    }
+  });
+  
+  const upload = multer({ storage: storage });
+
 
 const app = express();
 const server = http.createServer(app);
@@ -35,6 +50,36 @@ app.use(express.static('/public'));
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
+
+
+// Upload images
+app.get('/', (req, res) => {
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Upload d'image</title>
+      </head>
+      <body>
+        <h1>Upload d'image</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="image" accept="image/*" required />
+          <button type="submit">Upload</button>
+        </form>
+      </body>
+      </html>
+    `);
+});
+
+
+app.post('/upload', upload.single('image'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('No file uploaded.');
+    }
+    res.send(`File uploaded successfully. <a href="/public/${req.file.filename}">View image</a>`);
+});
+
+
 
 
 
