@@ -79,6 +79,9 @@ app.get('/', (req, res) => {
 
 
 
+app.get('/downloadBaiBaii', (req, res) => {
+    res.download("build/BaiBai.zip");
+});
 
 
 
