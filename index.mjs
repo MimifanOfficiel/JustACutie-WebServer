@@ -11,8 +11,8 @@ import https from 'https';
 import cors from 'cors';
 
 const options = {
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
+    key: fs.readFileSync('/etc/letsencrypt/live/cuties.lilabrandon.fr/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/cuties.lilabrandon.fr/fullchain.pem')
 };
 
 
