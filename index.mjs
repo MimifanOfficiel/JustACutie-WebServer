@@ -94,53 +94,53 @@ app.get('/downloadSynced', (req, res) => {
 app.use('/html', express.static('html'));
 
 
-// Cooldowns
-let dateOfNewPopup = new Date();
-let dateOfNewWallpaper = new Date();
+// // Cooldowns
+// let dateOfNewPopup = new Date();
+// let dateOfNewWallpaper = new Date();
 
 
-// Change next popup cooldown
-app.get('/setPopupCooldown/:timeBeforeNext', (req, res) => {
-    const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
-    const now = new Date();
-    dateOfNewPopup = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
-    res.send(`Popup cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
-});
+// // Change next popup cooldown
+// app.get('/setPopupCooldown/:timeBeforeNext', (req, res) => {
+//     const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
+//     const now = new Date();
+//     dateOfNewPopup = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
+//     res.send(`Popup cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
+// });
 
 
-// Change next wallpaper cooldown
-app.get('/setWallPaperCooldown/:timeBeforeNext', (req, res) => {
-    const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
-    const now = new Date();
-    dateOfNewWallpaper = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
-    res.send(`WallPaper cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
-});
+// // Change next wallpaper cooldown
+// app.get('/setWallPaperCooldown/:timeBeforeNext', (req, res) => {
+//     const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
+//     const now = new Date();
+//     dateOfNewWallpaper = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
+//     res.send(`WallPaper cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
+// });
 
 
-// Get time remaining before next Popup
-app.get('/getPopupCooldown', (req, res) => {
-    const now = new Date();
-    let diff = dateOfNewPopup - now;
-    if (diff < 0) diff = 0;
+// // Get time remaining before next Popup
+// app.get('/getPopupCooldown', (req, res) => {
+//     const now = new Date();
+//     let diff = dateOfNewPopup - now;
+//     if (diff < 0) diff = 0;
 
-    res.json({ diff });
-});
-
-
-// Get time remaining before next Wallpaper
-app.get('/getWallpaperCooldown', (req, res) => {
-    const now = new Date();
-    let diff = dateOfNewWallpaper - now;
-    if (diff < 0) diff = 0;
-
-    res.json({ diff });
-});
+//     res.json({ diff });
+// });
 
 
+// // Get time remaining before next Wallpaper
+// app.get('/getWallpaperCooldown', (req, res) => {
+//     const now = new Date();
+//     let diff = dateOfNewWallpaper - now;
+//     if (diff < 0) diff = 0;
 
-app.get('/cooldown', (req, res) => {
-    res.redirect('./html/cooldown/cooldown.html');
-});
+//     res.json({ diff });
+// });
+
+
+
+// app.get('/cooldown', (req, res) => {
+//     res.redirect('./html/cooldown/cooldown.html');
+// });
 
 
 
@@ -171,32 +171,32 @@ app.get('/getRandomImage', (req, res) => {
     res.send(randomFile);
 });
 
-app.get('/getRandomScreenshot', (req, res) => {
-    const folders = fs.readdirSync(path.join('..', 'cuties'));
-    let dates = [];
-    for(let i=0; i<folders.length; i++) {
-        if(folders[i].startsWith(".")) continue;
-        let folderStats = fs.statSync("../cuties/" + folders[i]);
-        if(folderStats.isDirectory()) dates.push(folders[i]);
-    }
+// app.get('/getRandomScreenshot', (req, res) => {
+//     const folders = fs.readdirSync(path.join('..', 'cuties'));
+//     let dates = [];
+//     for(let i=0; i<folders.length; i++) {
+//         if(folders[i].startsWith(".")) continue;
+//         let folderStats = fs.statSync("../cuties/" + folders[i]);
+//         if(folderStats.isDirectory()) dates.push(folders[i]);
+//     }
 
-    const choosenDate = dates[Math.floor(Math.random() * dates.length)];
-    const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
-    let randomCutie;
-    let choosenCutieScreenShots = [];
+//     const choosenDate = dates[Math.floor(Math.random() * dates.length)];
+//     const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
+//     let randomCutie;
+//     let choosenCutieScreenShots = [];
     
-    do {
-        randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
-        choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', choosenDate, randomCutie, "screenshots"));
-    } while(choosenCutieScreenShots.length == 0);
+//     do {
+//         randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
+//         choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', choosenDate, randomCutie, "screenshots"));
+//     } while(choosenCutieScreenShots.length == 0);
 
-    const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
+//     const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
 
-    res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
-});
+//     res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
+// });
 
-app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
-app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, "screenshots", req.params.screenshot)); });
+// app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
+// app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, "screenshots", req.params.screenshot)); });
 
 
 app.get('/social/:social', (req, res) => {
