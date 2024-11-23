@@ -7,6 +7,18 @@ import execPhp from 'exec-php';
 import { client, guild } from './discordBot/main.mjs';
 import { EmbedBuilder } from 'discord.js';
 import multer from 'multer';
+import https from 'https';
+
+const options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+};
+
+const httpsServer = https.createServer(options, app);
+
+httpsServer.listen(443, () => {
+    console.log(`HTTPS Server running on port 1571`);
+});
 
 
 // Configuring Multer to store in public folder
