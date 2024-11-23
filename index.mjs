@@ -195,7 +195,7 @@ app.get('/getRandomImage', (req, res) => {
 //     res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
 // });
 
-// app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
+app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
 // app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, "screenshots", req.params.screenshot)); });
 
 
