@@ -8,6 +8,7 @@ import { client, guild } from './discordBot/main.mjs';
 import { EmbedBuilder } from 'discord.js';
 import multer from 'multer';
 import https from 'https';
+import cors from 'cors';
 
 const options = {
     key: fs.readFileSync('server.key'),
@@ -31,6 +32,7 @@ const upload = multer({ storage: storage });
 
 const app = express();
 const server = http.createServer(app);
+app.use(cors());
 
 
 const database = new sqlite3.Database("passwords.db", sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
@@ -291,5 +293,5 @@ server.listen(1570, () => {
 const httpsServer = https.createServer(options, app);
 
 httpsServer.listen(443, () => {
-    console.log(`HTTPS Server running on port 1571`);
+    console.log(`HTTPS Server running on port 443`);
 });
