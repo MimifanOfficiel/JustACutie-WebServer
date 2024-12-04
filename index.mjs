@@ -168,7 +168,13 @@ app.get('/', (req, res) => {
                         
                         
                         
-                        app.get('/wallpaper', (req, res) => {
+                        app.get('/wallpaper/:pack', (req, res) => {
+                            if(req.params.pack) {
+                                const files = fs.readdirSync(path.join(`public/${req.params.pack}`));
+                                const randomFile = files[Math.floor(Math.random() * files.length)];
+                                console.log(randomFile);
+                                res.redirect(`/images/${randomFile}`);
+                            }
                             const files = fs.readdirSync(path.join('public'));
                             const randomFile = files[Math.floor(Math.random() * files.length)];
                             res.redirect(`/images/${randomFile}`);
