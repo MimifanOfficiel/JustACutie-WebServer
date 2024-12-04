@@ -11,10 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.11.2",
+    "cors": "^2.8.5",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
     "exec-php": "^0.0.6",
     "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.0",
     "sqlite3": "^5.1.7"
   }
