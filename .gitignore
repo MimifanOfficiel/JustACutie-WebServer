@@ -1,3 +1,4 @@
 passwords.db
 node_modules/
 .env
+public/
