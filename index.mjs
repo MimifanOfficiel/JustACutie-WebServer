@@ -174,10 +174,11 @@ app.get('/', (req, res) => {
                                 const randomFile = files[Math.floor(Math.random() * files.length)];
                                 console.log(randomFile);
                                 res.redirect(`/images/${randomFile}`);
+                            } else {
+                                const files = fs.readdirSync(path.join('public'));
+                                const randomFile = files[Math.floor(Math.random() * files.length)];
+                                res.redirect(`/images/${randomFile}`);
                             }
-                            const files = fs.readdirSync(path.join('public'));
-                            const randomFile = files[Math.floor(Math.random() * files.length)];
-                            res.redirect(`/images/${randomFile}`);
                         });
                         
                         app.get('/getRandomImage', (req, res) => {
