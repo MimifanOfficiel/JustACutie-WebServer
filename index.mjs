@@ -175,10 +175,11 @@ app.get('/', (req, res) => {
                         app.get('/wallpaper/:pack', (req, res) => {
                             if(req.params.pack) {
                                 const files = fs.readdirSync(path.join(`public/${req.params.pack}`));
-                                const randomFile = files[Math.floor(Math.random() * files.length)];
-                                console.log(randomFile);
-                                res.redirect(`/images/${randomFile}`);
-                            }
+                                if(files.length > 0) {
+                                    const randomFile = files[Math.floor(Math.random() * files.length)];
+                                    res.redirect(`/images/${randomFile}`);
+                                } else res.status(404).send("Not found");
+                            } else res.status(404).send("Not found");
                         });
                         
                         app.get('/getRandomImage', (req, res) => {
