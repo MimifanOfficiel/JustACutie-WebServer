@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS accounts (
     password VARCHAR(50) NOT NULL,
     email VARCHAR(50),
     discord_user VARCHAR(50),
+    requires_mfa BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
