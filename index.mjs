@@ -203,6 +203,8 @@ app.get('/addSocial/:social/:email/:username/:password/:discordUsername/:require
     const discordUsername = decodeURIComponent(req.params.discordUsername);
     const requiresMFA = decodeURIComponent(req.params.requiresMFA);
 
+    console.log(social, email, username, password, discordUsername, requiresMFA);
+
     database.exec(`INSERT INTO accounts (social, email, username, password, discord_user, requires_mfa) VALUES ('${social}','${email}','${username}','${password}','${discordUsername}','${requiresMFA}')`, (err) => {
         if(err) {
             console.error(`Can not insert data : ${err.toString()}`);
