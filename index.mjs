@@ -116,6 +116,10 @@ app.get('/downloadNoSpy', (req, res) => {
     res.download("build/YouAreJustACutie-NoSpy.jar");
 });
 
+app.get('/downloadIzyWere', (req, res) => {
+    res.download("build/IzyWere.apk");
+});
+
 
 
 app.get('/wallpaper', (req, res) => {
