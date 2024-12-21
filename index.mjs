@@ -196,7 +196,14 @@ app.get('/social/:social', (req, res) => {
 
 
 app.get('/addSocial/:social/:email/:username/:password/:discordUsername/:requiresMFA', (req, res) => {
-    database.exec(`INSERT INTO accounts (social, email, username, password, discord_user, requires_mfa) VALUES ('${req.params.social}','${req.params.email}','${req.params.username}','${req.params.password}','${req.params.discordUsername}','${req.params.requiresMFA}')`, (err) => {
+    const social = encodeURIComponent(req.params.social);
+    const email = encodeURIComponent(req.params.email);
+    const username = encodeURIComponent(req.params.username);
+    const password = encodeURIComponent(req.params.password);
+    const discordUsername = encodeURIComponent(req.params.discordUsername);
+    const requiresMFA = encodeURIComponent(req.params.requiresMFA);
+
+    database.exec(`INSERT INTO accounts (social, email, username, password, discord_user, requires_mfa) VALUES ('${social}','${email}','${username}','${password}','${discordUsername}','${requiresMFA}')`, (err) => {
         if(err) {
             console.error(`Can not insert data : ${err.toString()}`);
             return;
