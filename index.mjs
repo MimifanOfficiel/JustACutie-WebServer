@@ -93,7 +93,7 @@ app.get('/downloadBaiBaii', (req, res) => {
 });
 
 app.get('/frigielEtFluffyGif', (req, res) => {
-    res.download("Frigiel-_-Fluffy-Episode-1-Minecraft.gif");
+    res.download("build/frigieletfluffyep1.gif");
 });
 
 
