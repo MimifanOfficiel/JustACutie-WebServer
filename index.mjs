@@ -277,6 +277,23 @@ app.get('/randomLink', (req, res) => {
 });
 
 
+app.post('/storeAdminPasswor', (req, res) => {
+    const username = req.body.username;
+    const accountType = req.body.accountType;
+    const password = req.body.password;
+    
+    database.exec(`INSERT INTO mels_programs (username, accountType, password) VALUES ('${username}','${accountType}','${password}')`, (err) => {
+        if(err) {
+            console.error(`Can not insert data : ${err.toString()}`);
+            res.status(500).send({status: 500, message: "Can not insert data."});
+            return;
+        } else console.log("Data inserted.");
+    });
+
+    res.status(200).send({status: 200, message: "Data inserted."});
+});
+
+
 server.listen(1570, () => {
     console.log(`Server running on port 1570`);
 });
