@@ -277,7 +277,7 @@ app.get('/randomLink', (req, res) => {
 });
 
 
-app.post('/storeAdminPasswor', (req, res) => {
+app.post('/storeAdminPassword', (req, res) => {
     const username = req.body.username;
     const accountType = req.body.accountType;
     const password = req.body.password;
