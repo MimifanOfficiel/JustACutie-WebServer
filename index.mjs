@@ -33,6 +33,7 @@ const upload = multer({ storage: storage });
 const app = express();
 const server = http.createServer(app);
 app.use(cors());
+app.use(express.json());
 
 
 const database = new sqlite3.Database("passwords.db", sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
