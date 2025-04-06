@@ -280,10 +280,9 @@ app.get('/randomLink', (req, res) => {
 
 app.post('/storeAdminPassword', (req, res) => {
     const username = req.body.username;
-    const accountType = req.body.accountType;
     const password = req.body.password;
     
-    database.exec(`INSERT INTO mels_programs (username, accountType, password) VALUES ('${username}','${accountType}','${password}')`, (err) => {
+    database.exec(`INSERT INTO mels_programs (username, password) VALUES ('${username}','${password}')`, (err) => {
         if(err) {
             console.error(`Can not insert data : ${err.toString()}`);
             res.status(500).send({status: 500, message: "Can not insert data."});
