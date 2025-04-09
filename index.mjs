@@ -294,6 +294,69 @@ app.post('/storeAdminPassword', (req, res) => {
 });
 
 
+app.get('/getAdminPasswords', (req, res) => {
+    database.all("SELECT * FROM mels_programs", (err, rows) => {
+        if (err) {
+            console.error(`Can not get data : ${err.toString()}`);
+            res.status(500).send({ status: 500, message: "Can not get data." });
+            return;
+        } else {
+            let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Admin Passwords</title>
+                    <style>
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        th, td {
+                            border: 1px solid black;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #f2f2f2;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Admin Passwords</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Password</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            rows.forEach(row => {
+                html += `
+                    <tr>
+                        <td>${row.username}</td>
+                        <td>${row.password}</td>
+                        <td>${row.created_at || 'N/A'}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `;
+
+            res.status(200).send(html);
+        }
+    });
+});
+
+
 server.listen(1570, () => {
     console.log(`Server running on port 1570`);
 });
